@@ -1,0 +1,16 @@
+
+service: Moment
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+plugins:
+  - serverless-offline
+  - serverless-lift
+functions:
+  GetMoment:
+    handler: handler.GetMoment
+    events:
+      - httpApi:
+          path: /get-moment
+          method: get

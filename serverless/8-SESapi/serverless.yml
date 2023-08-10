@@ -1,0 +1,52 @@
+
+service: SESapi
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: ${opt:stage, 'dev'}
+
+  iamRolesStatements:
+    - Effect: Allow
+      Action: 
+        - ses:SendEmail
+        - ses:SendRawEmail
+        - ses:CreateTemplate
+        - ses:SendTemplatedEmail
+        - ses:DeleteTemplate
+      Resourse: "*"
+
+functions:
+  sendEmail:
+    handler: handlers/sendEmail.sendEmail
+    events:
+      - http:
+          path: emailSES/sendEmail/{ToEmail}/{Code}
+          method: get
+          timeout: 30
+  createEmailTemplate:
+    handler: handlers/createEmailTemplate.createEmailTemplate
+    events:
+      - http:
+          path: emailSES/createEmailTemplate
+          method: post
+          timeout: 30
+  sendEmailTemplate:
+    handler: handlers/sendEmailTemplate.sendEmailTemplate
+    events:
+      - http:
+          path: emailSES/sendEmailTemplate
+          method: post
+          timeout: 30
+  deleteEmailTemplate:
+    handler: handlers/deleteEmailTemplate.deleteEmailTemplate
+    events:
+      - http:
+          path: emailSES/deleteEmailTemplate/{TemplateName}
+          method: delete
+          timeout: 30
+plugins:
+  - serverless-offline
+
+

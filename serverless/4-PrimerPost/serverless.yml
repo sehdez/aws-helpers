@@ -1,0 +1,25 @@
+
+service: PrimerPost
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+plugins:
+  - serverless-offline
+
+functions:
+  servicioGET:
+    handler: handlers/handlerGET.servicioGet
+    events:
+      - httpApi:
+          path: /servicioGET
+          method: get
+  servicioPOST:
+    handler: handlers/handlerPOST.servicioPOST
+    events:
+      - httpApi:
+          path: /servicioPOST
+          method: post
+    
