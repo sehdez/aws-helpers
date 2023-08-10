@@ -38,4 +38,4 @@
 
 # SES Simple Email Service
 
-Función Lambda -> evitar conecciones a la base de datos desde la función lambda
+Función Lambda -> evitar conexiones a la base de datos desde la función lambda
